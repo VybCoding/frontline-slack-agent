@@ -6,3 +6,6 @@ __pycache__/
 .ruff_cache/
 .audit/
 cdk.out/
+
+# deck is a deliverable, regenerated from scratchpad/deck.js — not source
+Frontline-Personal-Agent.pdf
