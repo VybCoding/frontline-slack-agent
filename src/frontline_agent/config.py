@@ -59,6 +59,8 @@ class Settings(BaseSettings):
     salesforce_instance_url: str = ""
     analytics_provider_id: str = "analytics-oauth"
     analytics_base_url: str = ""
+    github_provider_id: str = "github-oauth"
+    github_org: str = "frontline-education"
 
     @property
     def is_local(self) -> bool:

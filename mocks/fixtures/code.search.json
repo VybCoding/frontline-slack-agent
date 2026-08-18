@@ -1,0 +1,8 @@
+{
+  "total_count": 3,
+  "items": [
+    {"name": "assignment_engine.py", "path": "services/absence/assignment_engine.py", "repository": {"name": "absence-management"}, "html_url": "https://github.internal/absence-management/blob/main/services/absence/assignment_engine.py"},
+    {"name": "multi_day.py", "path": "services/absence/rules/multi_day.py", "repository": {"name": "absence-management"}, "html_url": "https://github.internal/absence-management/blob/main/services/absence/rules/multi_day.py"},
+    {"name": "test_multi_day_assignment.py", "path": "tests/absence/test_multi_day_assignment.py", "repository": {"name": "absence-management"}, "html_url": "https://github.internal/absence-management/blob/main/tests/absence/test_multi_day_assignment.py"}
+  ]
+}

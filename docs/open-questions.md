@@ -103,8 +103,18 @@ content and delivers it as a Slack canvas or an uploaded PPTX
 (`connectors/artifacts.py`). This is better than a Workspace connector for the
 phone-first case, since a canvas is readable and editable in place.
 
-Still unaddressed: prototypes (Figma?), and whatever Frontline uses that an
-outsider would never guess.
+**Partly resolved:** the target machine has internal source access, so a `code`
+connector is now built — read-only search, file read, and merged-PR history. It
+is the highest-ceiling capability in the set, because a CPO normally receives the
+product through three layers of summary.
+
+Still unaddressed: **prototypes.** R3.2 names them and reading code does not
+produce one. The hosted answer is AgentCore Code Interpreter — ephemeral sandbox,
+repo clone, no push credentials — which is a few days of work and has not been
+done. It is the largest remaining capability gap and the one most likely to be
+raised, since a persistent daemon with a checkout can do it today.
+
+Also unaddressed: whatever Frontline uses that an outsider would never guess.
 
 ---
 
@@ -160,7 +170,18 @@ The right way to fix the catalogue is not a workshop; it is to run the two
 scheduled triggers for a fortnight and let him say what he wishes it had told
 him.
 
-### 16. Unattended read-only is enforced at the toolset, not the credential
+### 16. The code connector's safety depends on the OAuth grant, not just the code
+
+There are no write tools, which handles the agent. It does not handle the
+credential: if the registered GitHub provider is given a token with push scope,
+that scope exists whether or not this codebase uses it, and anything else holding
+the same grant can use it.
+
+**Register the provider with read scope only.** This is a five-minute
+configuration decision with a supply-chain-sized consequence, which is a bad
+ratio to leave undocumented.
+
+### 17. Unattended read-only is enforced at the toolset, not the credential
 
 During an autonomous run the agent receives only `risk == READ` tools, so it
 cannot write. But the *delegated tokens it holds* still carry write scope,

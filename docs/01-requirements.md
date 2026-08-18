@@ -115,8 +115,9 @@ Named so that leaving them out is a decision rather than an oversight.
 - Kill switch and cost caps. **Known gaps**, not deferred features. See
   [open-questions.md](open-questions.md).
 - Prototypes. R3.2 names them alongside documents and presentations, which are
-  now covered. A Figma connector is the obvious addition and the shape is proven
-  by the five that exist.
+  now covered. Reading code (`connectors/code.py`) is not the same as building
+  something; that needs a sandbox — AgentCore Code Interpreter — which is a few
+  days and is the largest remaining capability gap.
 - Proactive judgement beyond the trigger catalogue. The agent initiates on
   defined schedules and events (R6); it does not decide on its own that a new
   kind of thing is worth watching. Widening that is a product decision, and the

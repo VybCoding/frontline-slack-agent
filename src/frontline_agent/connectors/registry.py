@@ -182,10 +182,11 @@ def get_registry() -> Registry:
     global _registry
     if _registry is None:
         _registry = Registry()
-        from . import analytics, artifacts, atlassian, slack_search
+        from . import analytics, artifacts, atlassian, code, slack_search
 
         _registry.register(atlassian.connector)
         _registry.register(artifacts.connector)
+        _registry.register(code.connector)
         _registry.register(analytics.connector)
         _registry.register(slack_search.connector)
         try:

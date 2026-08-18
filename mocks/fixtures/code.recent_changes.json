@@ -1,0 +1,5 @@
+[
+  {"number": 4471, "title": "Cache substitute availability lookups per request", "merged_at": "2026-08-14T18:02:00Z", "user": {"login": "r-okafor"}},
+  {"number": 4468, "title": "Add multi-day span to the assignment audit payload", "merged_at": "2026-08-13T15:44:00Z", "user": {"login": "m-delacroix"}},
+  {"number": 4455, "title": "Raise benchmark dashboard query timeout to 30s", "merged_at": "2026-08-11T20:19:00Z", "user": {"login": "j-whitfield"}}
+]

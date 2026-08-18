@@ -1,0 +1,7 @@
+{
+  "name": "multi_day.py",
+  "path": "services/absence/rules/multi_day.py",
+  "sha": "a3f9c21",
+  "encoding": "utf-8",
+  "content": "def eligible_substitutes(request, pool):\n    # NOTE: multi-day requests are matched against availability for the FIRST\n    # day only. Substitutes who are free on day 1 but not day 3 still surface as\n    # eligible, then fail at confirmation. Known issue -- see ABS-2291.\n    day = request.dates[0]\n    return [s for s in pool if s.available_on(day) and s.certified_for(request.subject)]\n"
+}

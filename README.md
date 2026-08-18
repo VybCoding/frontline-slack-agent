@@ -144,6 +144,7 @@ vaulted, and refreshed.
 | `ATLASSIAN_PROVIDER_ID` + `ATLASSIAN_SITE_URL` | Jira + Confluence |
 | `SALESFORCE_PROVIDER_ID` + `SALESFORCE_INSTANCE_URL` | Salesforce |
 | `ANALYTICS_PROVIDER_ID` + `ANALYTICS_BASE_URL` | product analytics / BI |
+| `GITHUB_PROVIDER_ID` + `GITHUB_ORG` | source code — **grant read scope only** |
 
 Those four are **inferences**, not requirements — see
 [open question 9](docs/open-questions.md). Adding a system you actually use is
@@ -204,6 +205,16 @@ verifies, drops retries, dispatches, returns. It never does work.
 calls render as a live sequence, `app_context_changed` so *"summarize this and
 draft a reply"* resolves with no arguments, suggested prompts, thread titles.
 On a phone, a streamed timeline is a working interrupt. A spinner is not.
+
+**Source code is readable, never writable.** The machine under consideration for
+a self-hosted daemon turns out to have internal source access — which is the
+strongest argument for that route and the one that escalates its risk from broad
+to supply-chain. Both halves of the benefit are separable from the machine: the
+read-only `code` connector (search, file read, merged-PR history) is built, and
+the prototype half belongs in a sandbox rather than on a laptop. There are no
+write tools and there should never be any; given what sits downstream of that
+repository set, a tool that does not exist is worth more than one that is merely
+gated. [Full analysis](docs/05-hosting-options.md#35-source-access-turns-injection-into-a-supply-chain-problem).
 
 **Documents are generated, not integrated.** No Workspace or M365 connector.
 The agent writes the content and delivers it as a Slack **canvas** for anything
@@ -300,7 +311,7 @@ context lives in process memory, which is correct for Socket Mode and **wrong fo
 Lambda** · unattended read-only is enforced at the toolset, while the delegated
 tokens themselves still carry write scope.
 
-All sixteen, with reasoning: [docs/open-questions.md](docs/open-questions.md).
+All seventeen, with reasoning: [docs/open-questions.md](docs/open-questions.md).
 
 ---
 
@@ -309,6 +320,7 @@ All sixteen, with reasoning: [docs/open-questions.md](docs/open-questions.md).
 ```
 src/frontline_agent/
   connectors/base.py      the contract — read this first
+  connectors/code.py      read-only source access; no write tools, ever
   connectors/registry.py  the choke point
   audit/log.py            the control
   identity/token_vault.py delegated OAuth

@@ -72,3 +72,22 @@ async def test_local_mode_never_touches_the_network(monkeypatch):
         session_id="s", principal="U1",
     )
     assert result["total"] == 4
+
+
+def test_code_connector_has_no_write_tools():
+    """The machine under consideration for a self-hosted daemon has source access.
+    A tool that does not exist cannot be reached by an injected instruction, and
+    what sits downstream of this repository set makes that worth more than a gate.
+    """
+    code = next(c for c in get_registry().connectors if c.name == "code")
+    assert code.tools
+    assert all(spec.risk is Risk.READ for spec in code.tools)
+
+
+def test_code_is_confidential_not_regulated():
+    """Source is IP, not student data. Mislabelling it regulated would redact the
+    audit log's arguments for no reason and hide what the agent actually read."""
+    code = next(c for c in get_registry().connectors if c.name == "code")
+    classes = {spec.data_class for spec in code.tools}
+    assert DataClass.REGULATED not in classes
+    assert DataClass.CONFIDENTIAL in classes

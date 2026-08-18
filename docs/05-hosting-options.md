@@ -40,6 +40,18 @@ dishonest.
 3. **Zero integration work.** No OAuth provider registration, no app manifest,
    no scopes.
 4. **No procurement, no security review, no admin approval.** It is his machine.
+5. **Access to internal source.** Confirmed late, and it is the strongest
+   argument on this list. It buys two things that nothing else on the table
+   buys as cheaply:
+
+   - **Grounded product answers.** *"Why does substitute auto-assign misfire on
+     multi-day requests?"* answered from the implementation rather than from a
+     ticket comment or somebody's recollection. A CPO is structurally starved of
+     this — they get the product through three layers of summary — and it is
+     genuinely the capability with the highest ceiling here.
+   - **Prototypes.** R3.2 names them explicitly and nothing else in this
+     scaffold produces one. A checkout plus a shell can actually build a working
+     branch, which beats a mock.
 
 Points 3 and 4 are the real reason this option keeps coming up, and they are
 worth naming: **the sanctioned path has lead times, and this one has none.**
@@ -110,7 +122,34 @@ different configuration, none observable centrally.
 objection at all. The approach cannot serve the group the pilot was defined
 around, which is a scoping fact rather than a matter of risk appetite.
 
-### 3.5 The ordinary operational ones
+### 3.5 Source access turns injection into a supply-chain problem
+
+The same finding that makes §2.5 attractive is the one that changes the risk
+category rather than its magnitude.
+
+Without code access, a successful prompt injection means misuse of whatever tools
+the agent has — bad, bounded, recoverable. With a checkout and a shell on a
+machine that also holds git credentials, a successful injection can modify source,
+commit, and push. If that machine can reach CI, it can reach the build.
+
+Frontline's software runs in roughly ten thousand school districts. A compromise
+path that terminates in the build pipeline is not a larger version of the earlier
+risk; it is a different risk, with a different set of people who need to be told
+about it. The trigger for it is unchanged and unglamorous: someone emails him, or
+posts in a Slack Connect channel, and the agent reads it.
+
+Two adjacent consequences, both now live:
+
+- **IP egress.** Model calls carry source context to whatever provider the daemon
+  points at, over a home network, with no processing agreement and no egress
+  logging. The earlier read that "no code access means IP is fine" was correct at
+  the time and is now inverted.
+- **Secrets in repositories.** Real codebases contain `.env` files, fixtures with
+  live credentials, and configuration with connection strings. An agent with
+  repository read access and good reasoning is unusually effective at finding
+  them, which widens the credential surface well beyond the browser session set.
+
+### 3.6 The ordinary operational ones
 
 - **Endpoint policy.** A persistent process running shell at boot with outbound
   WebSockets will either trip EDR or require an exception. The exception is the
@@ -215,6 +254,32 @@ for *other* people later. It is not the personal agent.
 
 ---
 
+## 4a. What to do about the source-code finding specifically
+
+The useful move is not to argue against §2.5. It is to notice that **both of its
+benefits are separable from the machine.**
+
+| Benefit | Hosted equivalent | What it costs |
+|---|---|---|
+| Grounded answers about how the product behaves | `connectors/code.py` — read-only search, file read, merged-PR history over the GitHub API | An hour. **Already built.** |
+| Building a prototype | AgentCore Code Interpreter — ephemeral sandbox, repo clone, no push credentials unless explicitly granted | A few days. Not built. |
+
+The code connector has **no write tools and should never acquire any.** A tool
+that does not exist cannot be reached by a confused model or an injected
+instruction, and given what sits downstream of this particular repository set,
+that is worth more than the convenience of letting the agent open a pull request.
+
+The sandbox is the honest gap. Reading code does not produce a prototype, and
+R3.2 asks for prototypes. But a sandbox is a contained, ephemeral, credential-free
+execution environment — which is a very different proposition from a persistent
+daemon with a checkout and push rights on someone's laptop, and it is the version
+that can be approved.
+
+So the position is: **the source-code finding strengthens the case for the local
+route more than anything else discussed, and it still does not survive it** —
+because the part worth having transfers, and the part that does not transfer is
+the part that reaches the build.
+
 ## 5. Recommendation
 
 **Build D.** It is the only route that satisfies both halves of the requirement
@@ -226,8 +291,10 @@ Sequenced:
 1. **Today.** Start Enterprise Grid app approval and the Bedrock model-access
    request. Both are queues, neither needs code, and either will become the
    critical path if left until it is needed.
-2. **Days 1–3.** Deploy C against his account with two or three connectors.
-   Interactive only. He is using something real by mid-week.
+2. **Days 1–3.** Deploy C against his account with two or three connectors,
+   including read-only code search — it is the highest-ceiling capability and
+   the cheapest to make safe. Interactive only. He is using something real by
+   mid-week.
 3. **Days 4–5.** Enable the morning brief and renewal watch. Autonomy arrives
    read-only, which is the version nobody has to argue about.
 4. **Week 2+.** Widen connectors based on what he actually reaches for, using the
@@ -241,8 +308,10 @@ If there is a hard date this week and D cannot make it, **B is the fallback, not
 A** — and only with all four of the following:
 
 - A company-managed instance in a VPC, not an endpoint. Not his laptop.
-- **No regulated systems.** No Salesforce, no student-adjacent data, no
-  production admin console. Jira, Confluence, and Slack only.
+- **No regulated systems, and no write access to source.** No Salesforce, no
+  student-adjacent data, no production admin console. A read-only checkout is
+  acceptable; git push credentials and CI access are not, for the reasons in
+  §3.5. Jira, Confluence, Slack, and read-only code.
 - A **written decommission date**, because a temporary agent with credentials is
   the single most reliable way to acquire a permanent one nobody owns.
 - Its own service account rather than his personal credentials. This costs some
