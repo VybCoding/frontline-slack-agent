@@ -59,5 +59,5 @@ labels already exist, adding the gate is a conditional in one function.
 
 Any of: the pilot expands past the seven named users; the first `write_external`
 action surprises someone; Roper compliance asks for a control matrix. All three
-are likely inside a quarter, and the audit log is what makes the resulting
-conversation evidence-based instead of theoretical.
+are likely inside a quarter, and the audit log is what lets that conversation
+start from evidence.

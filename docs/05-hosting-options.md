@@ -41,11 +41,11 @@ dishonest.
    no scopes.
 4. **No procurement, no security review, no admin approval.** It is his machine.
 
-Points 3 and 4 are the real reason this keeps coming up, and they deserve to be
-named without euphemism: **the sanctioned path is slow, and this one is not.**
-This is not recklessness. It is a competent executive routing around an
-organization that cannot move at the speed of his problem. Any recommendation
-that does not beat it on time-to-value will lose to it, correctly.
+Points 3 and 4 are the real reason this option keeps coming up, and they are
+worth naming: **the sanctioned path has lead times, and this one has none.**
+That is not recklessness — it is a reasonable response to a real constraint, and
+it is what makes the option attractive. Any recommendation that does not compete
+on time-to-value will lose to it, and should.
 
 ## 3. The threat model, corrected
 
@@ -72,11 +72,11 @@ agent with shell access and his credentials that reads untrusted content is,
 functionally, a remote code execution path reachable by anyone who can email him
 or post in a shared Slack Connect channel.
 
-This is not hypothetical; it is the characteristic failure mode of this entire
-product category. The relevant question is never "will the model be fooled" but
-"what can it reach when it is." On AWS with a fixed connector registry, the
-answer is: the declared tools, and nothing else. With shell on his box, the
-answer is: everything the machine can reach.
+This is the characteristic failure mode of the product category rather than a
+hypothetical. The useful question is not "will the model be fooled" but "what can
+it reach when it is." On AWS with a fixed connector registry, the answer is the
+declared tools and nothing else. With shell access on an endpoint, the answer is
+everything the machine can reach.
 
 ### 3.2 Attribution cannot be recovered
 
@@ -87,12 +87,11 @@ There is no configuration that fixes this. It is a property of using his
 credentials directly, and it is precisely what the platform architect's
 scoped-identity principle exists to prevent.
 
-The consequence is evidentiary, not merely procedural. In a FERPA context, "who
-accessed this record, when, and why" is a question with legal weight. "His
-account, four hundred times, at three in the morning" is an answer that creates
-an investigation rather than closing one — and there is no way to demonstrate
-afterward which actions were his and which were the agent's, because the
-distinction was never captured.
+The consequence is evidentiary rather than procedural. In a FERPA context, "who
+accessed this record, when, and why" is a question with legal weight, and an
+answer of "his account, repeatedly, overnight" opens an investigation rather than
+closing one. There is no way to establish afterward which actions were his and
+which were the agent's, because the distinction was never captured.
 
 ### 3.3 Data leaves the corporate boundary
 
@@ -107,15 +106,16 @@ The ask was a small pilot — seven named users. A PC-hosted agent serves one
 person. Seven users means seven unmanaged daemons on seven endpoints, each with a
 different configuration, none observable centrally.
 
-**This is the argument to lead with in the room**, because it is not a security
-objection at all. The approach simply cannot do the thing that was asked for, and
-that is harder to wave away than a risk register.
+**This is the argument worth leading with**, because it is not a security
+objection at all. The approach cannot serve the group the pilot was defined
+around, which is a scoping fact rather than a matter of risk appetite.
 
 ### 3.5 The ordinary operational ones
 
 - **Endpoint policy.** A persistent process running shell at boot with outbound
-  WebSockets will either trip EDR or require an exception — and the exception is
-  worse, because it converts a personal choice into an organizational liability.
+  WebSockets will either trip EDR or require an exception. The exception is the
+  worse outcome, because it converts a personal setup into something the
+  organization now owns.
 - **Availability.** "Always-on collaborator" becomes "on when the laptop is
   open." He is now operating infrastructure, and he is the only one who can
   restart it.
@@ -224,8 +224,8 @@ than B once app approval is running in parallel, which it can be from day one.
 Sequenced:
 
 1. **Today.** Start Enterprise Grid app approval and the Bedrock model-access
-   request. Both are queues, neither needs code, and both will otherwise become
-   the critical path.
+   request. Both are queues, neither needs code, and either will become the
+   critical path if left until it is needed.
 2. **Days 1–3.** Deploy C against his account with two or three connectors.
    Interactive only. He is using something real by mid-week.
 3. **Days 4–5.** Enable the morning brief and renewal watch. Autonomy arrives
@@ -248,5 +248,5 @@ A** — and only with all four of the following:
 - Its own service account rather than his personal credentials. This costs some
   reach and recovers most of §3.2, which is the item that cannot be fixed later.
 
-The failure mode to avoid is not "we moved fast." It is "we moved fast, it
-worked, and now it is load-bearing and nobody can turn it off."
+The failure mode to avoid is not moving fast. It is moving fast, having it work,
+and finding a year later that it is load-bearing and nobody owns it.

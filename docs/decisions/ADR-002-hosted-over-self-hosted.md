@@ -10,15 +10,15 @@ what they do. Both are also the same shape: a long-lived daemon on hardware you
 own, memory in a local SQLite file, with shell execution and filesystem access as
 headline features, bridging a dozen messaging platforms into one gateway.
 
-That shape is exactly why they feel like magic at home, and exactly why they
-cannot be the answer here.
+That shape is exactly why they feel like magic at home, and exactly why it does
+not transfer to this setting.
 
 Frontline is a K-12 platform under Roper Technologies. Student records are
 FERPA-governed; the special education and Medicaid billing surfaces carry
 HIPAA-adjacent exposure; several states layer on their own statutes. A process
 with shell access, a local unencrypted memory store, no audit trail, and a named
-executive's credentials in its environment is not a policy problem to be waived.
-It is the specific artifact a security review exists to find.
+executive's credentials in its environment is not something a review in that
+context is likely to approve — and the reasons it would decline are good ones.
 
 ## Decision
 
@@ -49,7 +49,7 @@ for — they are implementation details of the products he named.
   wrote and labelled. That is a real capability ceiling and it is the correct
   trade at this stage.
 - Slower than "install Hermes on a box this week." The honest counter is that the
-  week saved is borrowed against the review that follows, at interest.
+  week saved tends to be borrowed against the review that follows.
 
 ## Note on the timeline
 

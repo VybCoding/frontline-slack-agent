@@ -9,8 +9,8 @@ access to," acting on his behalf. The platform architect's objection the same da
 design principle is that agents act as **scoped service identities, not as named
 users**. This was recorded as the core unresolved tension and never settled.
 
-It reads as a contradiction. It is not — it is two requirements that were assumed
-to need the same mechanism.
+It reads as a contradiction. It is better understood as two requirements that
+were assumed to need the same mechanism.
 
 - The CPO's requirement is about **reach**: the agent must not be blind to things he
   can see, or it fails at the first real question.
@@ -45,8 +45,8 @@ time; access expands visibly, and each grant is revocable on its own.
 
 **Good**
 
-- Both requirements are met without either side conceding. This is the answer to
-  the question the hackathon was convened to discover.
+- Both requirements are met without either side conceding, which is the outcome
+  the discovery exercise was looking for.
 - No long-lived credential is ever in the process, in an env var, or in a repo.
   The vault refreshes.
 - Revoking the agent's Salesforce access does not require rotating its Jira

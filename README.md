@@ -34,11 +34,14 @@ consequential decision in the package and it gets a document of its own.
 
 ## The problem this was built against
 
-The requirement is one paragraph relayed on 7/10, plus an implementation
-preference from 8/7. The platform architect's assessment is the accurate one: the desire is
-long-known but *"never detailed out on capabilities."* There is no PRD. The
-existing PM-assistant PRDs cover the PM-focused Personal Assistant, which is
-adjacent but a different product.
+The requirement arrived as intent rather than specification: one paragraph
+relayed on 7/10, plus an implementation preference from 8/7. The platform
+architect's read is the useful one — the desire is long-known but *"never
+detailed out on capabilities."* The existing PM-assistant PRDs cover an adjacent
+product, not this one.
+
+That is a normal starting condition for an ambitious internal request, and it is
+the condition this repo is built for.
 
 So the first deliverable is not code. It is
 [**docs/01-requirements.md**](docs/01-requirements.md) — every requirement traced
@@ -53,8 +56,8 @@ Recorded on 7/10 and open ever since:
 > his behalf. The platform architect's principle is that agents act as **scoped service identities,
 > not as named users**.
 
-These were treated as contradictory for five weeks. They are not. They were
-assumed to require the same mechanism.
+These read as contradictory, and were left open as such. They are not — they
+were assumed to require the same mechanism.
 
 - The CPO's requirement is about **reach** — an agent blind to what he can see fails
   at the first real question.
@@ -82,12 +85,12 @@ The 8/7 ask was to stand one of these up, Hermes preferred. Both are good at wha
 they do. Both are also the same shape: a daemon on hardware you own, memory in a
 local SQLite file, shell and filesystem access as headline features.
 
-That shape is why they feel like magic at home and why they cannot ship here.
+That shape is why they feel like magic at home, and why it does not transfer.
 Frontline is K-12 under Roper. Student records are FERPA-governed; special
 education and Medicaid billing carry HIPAA-adjacent exposure. A process with
 shell access, an unencrypted local memory store, no audit trail, and an
-executive's credentials in its environment is the specific artifact a security
-review exists to find.
+executive's credentials in its environment is unlikely to clear review in that
+context — and reasonably so.
 
 **So this keeps the Hermes experience and changes the substrate.** Always on, one
 conversation, remembers everything, reaches all his systems, self-improving —
@@ -271,8 +274,7 @@ Read this section before the code.
 
 1. **No kill switch.** Nothing stops a turn in flight. The nearest action is
    setting worker concurrency to zero — a console operation, not a feature. About
-   a day of work. Listed first because *"we ran it unrestricted with no way to
-   stop it"* is a sentence that ends a pilot.
+   a day of work, and worth doing before the pilot widens.
 2. **Cost is bounded, not governed.** A hard $2.00 per-turn ceiling is enforced
    by the SDK, which bounds a runaway loop. There is still no per-principal
    attribution, aggregate cap, or alerting — and Roper's cost gate needs those.

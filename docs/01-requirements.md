@@ -1,13 +1,14 @@
 # Requirements
 
-There is no PRD for this. The existing PM-assistant PRDs cover the PM-focused
-Personal Assistant, which is adjacent but not the same product. What exists for
-the general-purpose PA is one paragraph of intent plus an implementation
-preference. The platform architect's point — the desire is long-known but "never detailed out on
-capabilities" — is the accurate summary.
+The requirement for the general-purpose PA exists as intent rather than
+specification: one paragraph plus an implementation preference. The existing
+PM-assistant PRDs cover an adjacent product. The platform architect's summary —
+the desire is long-known but "never detailed out on capabilities" — is the useful
+framing.
 
-This document is the attempt to detail it. It is derived, not given. Where it
-extrapolates, it says so.
+This document is the attempt to detail it, so that the build has something to be
+right or wrong about. It is derived, not given. Where it extrapolates, it says
+so, and those are the places to push back first.
 
 ## Source material
 
@@ -56,8 +57,8 @@ The agent serves one named person and operates with their access.
   and delivers it as a Slack canvas (documents) or an uploaded file (decks). No
   Workspace or M365 connector is required. See `connectors/artifacts.py`.
 - **R3.3** Unrestricted in the pilot. *(8/17)*
-- **R3.4** **[E]** Every action recorded. R3.3 without this is not a pilot, it is
-  an incident waiting for a date.
+- **R3.4** **[E]** Every action recorded. R3.3 is only a pilot rather than an
+  open-ended risk if there is a record of what happened.
 
 → [ADR-003](decisions/ADR-003-unrestricted-with-audit.md).
 
@@ -123,8 +124,9 @@ Named so that leaving them out is a decision rather than an oversight.
 
 ## The tension, stated plainly
 
-R1.1 and R1.2 were recorded as contradictory and left unresolved for five weeks.
-They are not contradictory. They were assumed to require the same mechanism, and
-they do not — one is about reach, the other about attribution, and delegated
-OAuth satisfies both. That resolution is the single most useful output of this
-exercise; the code is the demonstration that it works.
+R1.1 and R1.2 were recorded as being in conflict and left open. They are not in
+conflict — they were assumed to require the same mechanism, and they do not. One
+is about reach, the other about attribution, and delegated OAuth satisfies both.
+
+That resolution is the most useful output of this exercise; the code is the
+demonstration that it holds.
