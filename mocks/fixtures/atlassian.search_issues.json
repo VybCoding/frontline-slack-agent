@@ -1,0 +1,9 @@
+{
+  "total": 4,
+  "issues": [
+    {"key": "ABS-2291", "fields": {"summary": "Absence Management: substitute auto-assign misfires on multi-day requests", "status": {"name": "In Progress"}, "priority": {"name": "High"}, "assignee": {"displayName": "R. Okafor"}, "customfield_epic": "Q3 Reliability", "updated": "2026-08-14T16:22:00.000-0400"}},
+    {"key": "ABS-2310", "fields": {"summary": "Sub pool depletion alerts for districts over 4k students", "status": {"name": "In Review"}, "priority": {"name": "Medium"}, "assignee": {"displayName": "M. Delacroix"}, "customfield_epic": "Q3 Reliability", "updated": "2026-08-15T09:41:00.000-0400"}},
+    {"key": "SPED-882", "fields": {"summary": "IEP goal-bank search returns archived goals", "status": {"name": "Blocked"}, "priority": {"name": "Highest"}, "assignee": {"displayName": "T. Nakamura"}, "customfield_epic": "Special Programs", "updated": "2026-08-11T13:05:00.000-0400"}},
+    {"key": "ANL-401", "fields": {"summary": "District benchmark dashboard: p95 load 11s on 2M-row tenants", "status": {"name": "In Progress"}, "priority": {"name": "High"}, "assignee": {"displayName": "J. Whitfield"}, "customfield_epic": "Analytics Perf", "updated": "2026-08-16T11:58:00.000-0400"}}
+  ]
+}

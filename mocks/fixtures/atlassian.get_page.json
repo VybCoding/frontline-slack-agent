@@ -1,0 +1,7 @@
+{
+  "id": "884736512",
+  "title": "FY27 Product Strategy — Working Draft",
+  "spaceId": "PROD",
+  "version": {"number": 14, "createdAt": "2026-08-12T21:10:00.000Z"},
+  "body": {"storage": {"value": "<h2>Thesis</h2><p>Districts are consolidating point solutions. Our wedge is the operational spine — absence, sub fill, and SPED compliance — where switching costs are highest and data gravity already favors us.</p><h2>Three bets</h2><ol><li>Unify identity across HCM and Student modules so a district admin sees one roster of record.</li><li>Ship analytics that answer board-meeting questions, not dashboards that require an analyst.</li><li>Make compliance reporting a byproduct of daily work rather than a quarterly scramble.</li></ol><h2>Open</h2><p>Pricing model for the unified tier is unresolved. Finance wants seat-based; the field wants per-student.</p>"}}
+}

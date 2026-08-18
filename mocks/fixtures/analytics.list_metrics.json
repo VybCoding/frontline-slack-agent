@@ -1,0 +1,8 @@
+{
+  "metrics": [
+    {"name": "weekly_active_users", "definition": "Distinct district staff with >=1 session in a rolling 7-day window.", "grain": "week", "dimensions": ["module", "district_segment", "plan_tier"]},
+    {"name": "feature_adoption_rate", "definition": "Share of eligible districts that used a feature at least twice in 30 days.", "grain": "month", "dimensions": ["module", "feature", "district_segment"]},
+    {"name": "time_to_value_days", "definition": "Median days from contract start to first sustained weekly usage.", "grain": "month", "dimensions": ["module", "district_segment"]},
+    {"name": "sub_fill_rate", "definition": "Share of absence requests filled by a substitute before the start bell.", "grain": "week", "dimensions": ["district_segment", "region"]}
+  ]
+}

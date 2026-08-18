@@ -1,0 +1,76 @@
+# Slack app manifest — Frontline Personal Agent
+#
+# Create the app from this file: api.slack.com/apps -> Create New App -> From a manifest.
+# Then read docs/05-slack-interface.md before changing anything here.
+#
+# Two things in this file are decisions, not defaults:
+#
+#   features.agent_view      opts into Slack's 2026 agent surface — dedicated
+#                            agent DM, split view alongside a channel, top-nav
+#                            entry, and the streaming timeline. Without it this
+#                            is just a bot in a DM.
+#
+#   oauth_config.scopes.user the agent reads with the principal's access. These
+#                            are read scopes plus chat:write; see ADR-001 for
+#                            why the write side is deliberately narrow even
+#                            though the pilot is otherwise unrestricted.
+
+display_information:
+  name: Frontline Agent
+  description: Personal agent for the Frontline Education CPO.
+  background_color: "#1a2b4c"
+  long_description: >-
+    A personal agent that works across Jira, Confluence, Salesforce, product
+    analytics, and Slack itself, on behalf of a single named principal. Runs on
+    Amazon Bedrock inside Frontline's AWS account. Every action it takes is
+    recorded in an append-only audit log.
+
+features:
+  bot_user:
+    display_name: Frontline Agent
+    always_online: true
+  # Slack's agent surface. Replaced the older `assistant_view` property in 2026.
+  agent_view:
+    enabled: true
+  app_home:
+    home_tab_enabled: false
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+  # Deliberately empty. The brief said conversational and phone-first; a slash
+  # command with flags is a CLI in a Slack costume.
+  slash_commands: []
+
+oauth_config:
+  scopes:
+    bot:
+      - assistant:write        # status, suggested prompts, thread titles
+      - chat:write             # post and stream as the agent
+      - im:history             # read the agent DM
+      - im:read
+      - im:write
+      - users:read             # resolve display names in output
+      - canvases:write         # drafted documents land as canvases, not files
+      - files:write            # generated decks and exports
+    user:
+      - search:read            # primary retrieval path — see connectors/slack_search.py
+      - channels:history       # read a specific thread the principal is viewing
+      - groups:history
+      - im:history
+      - mpim:history
+      - chat:write             # post as the principal, when explicitly asked
+
+settings:
+  event_subscriptions:
+    # Local dev uses Socket Mode instead; leave this blank until the API Gateway
+    # stage exists, then set it to <api-url>/slack/events.
+    request_url: https://REPLACE-ME.execute-api.us-east-1.amazonaws.com/prod/slack/events
+    bot_events:
+      - app_home_opened        # seed suggested prompts when the DM is opened
+      - app_context_changed    # what the principal is currently looking at
+      - message.im             # the actual conversation
+  interactivity:
+    is_enabled: true
+    request_url: https://REPLACE-ME.execute-api.us-east-1.amazonaws.com/prod/slack/events
+  org_deploy_enabled: true     # Enterprise Grid org-wide install
+  socket_mode_enabled: false   # flip to true for local development
+  token_rotation_enabled: true

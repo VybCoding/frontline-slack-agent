@@ -1,0 +1,6 @@
+[
+  {"user": "a.boateng", "text": "Harbor County health score dropped to 48. Renewal is 10/15. They want a roadmap conversation with product before they commit.", "ts": "1755111600.000300"},
+  {"user": "d.marchetti", "text": "What's driving the drop — support volume or usage?", "ts": "1755112200.000400"},
+  {"user": "a.boateng", "text": "Both. 19 open cases, most of them SPED goal-bank related. And their analytics usage fell off a cliff after the June release.", "ts": "1755112800.000500"},
+  {"user": "j.whitfield", "text": "The analytics drop is probably ANL-401 — p95 load is 11s on tenants their size. We're on it but it's not landing until next sprint.", "ts": "1755113400.000600"}
+]

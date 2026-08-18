@@ -1,0 +1,60 @@
+[project]
+name = "frontline-agent"
+version = "0.1.0"
+description = "Personal agent for the Frontline Education CPO, interfaced through Slack."
+requires-python = ">=3.11"
+dependencies = [
+    "claude-agent-sdk>=0.1.0",
+    "slack-bolt>=1.28.0",
+    "slack-sdk>=3.33.0",
+    "boto3>=1.35.0",
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.5.0",
+    "httpx>=0.27.0",
+    "structlog>=24.4.0",
+]
+
+[project.optional-dependencies]
+# Deck rendering. Optional so the core install stays small; render_deck
+# returns an actionable error rather than crashing when it is absent.
+artifacts = ["python-pptx>=1.0.0"]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.7.0",
+    "aws-cdk-lib>=2.160.0",
+    "constructs>=10.3.0",
+]
+
+[project.scripts]
+frontline-agent = "frontline_agent.runtime.local:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/frontline_agent"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+# Every broad catch below is deliberate degradation, not a swallowed error, and
+# each one logs before falling back. Scoped per-file rather than ignored globally
+# so a new blind catch anywhere else still fails the lint.
+#
+#   surface.py  a workspace that is not entitled for streaming must still get a
+#               reply — every streaming call falls back to a plain post.
+#   core.py     any failure inside the agent loop becomes a user-visible error
+#               event rather than a stack trace in CloudWatch.
+#   demo.py     credential probing; the whole point is that absence is normal.
+"src/frontline_agent/slack/surface.py" = ["BLE001"]
+"src/frontline_agent/agent/core.py" = ["BLE001"]
+"scripts/demo.py" = ["BLE001"]
+"tests/*" = ["S101"]

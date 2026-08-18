@@ -1,0 +1,9 @@
+{
+  "totalSize": 3,
+  "done": true,
+  "records": [
+    {"Id": "0018X00002mQ1aA", "Name": "Maple Ridge USD", "Enrollment__c": 18400, "ARR__c": 412000, "Renewal_Date__c": "2026-11-30", "Health_Score__c": 62, "Open_Cases__c": 7, "Modules__c": "Absence;Recruit;Analytics"},
+    {"Id": "0018X00002mQ4bB", "Name": "Harbor County Schools", "Enrollment__c": 41250, "ARR__c": 968000, "Renewal_Date__c": "2026-10-15", "Health_Score__c": 48, "Open_Cases__c": 19, "Modules__c": "Absence;SPED;Analytics;Business"},
+    {"Id": "0018X00002mQ7cC", "Name": "Lakeside Consolidated", "Enrollment__c": 6100, "ARR__c": 143000, "Renewal_Date__c": "2027-02-28", "Health_Score__c": 81, "Open_Cases__c": 2, "Modules__c": "Absence"}
+  ]
+}
